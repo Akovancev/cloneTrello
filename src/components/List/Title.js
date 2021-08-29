@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Typography, InputBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import DeleteIcon from '@material-ui/icons/Delete';
 import storeApi from '../../utils/storeApi';
 
 const useStyle = makeStyles((theme) => ({
@@ -13,6 +13,8 @@ const useStyle = makeStyles((theme) => ({
     flexGrow: 1,
     fontSize: '1.2rem',
     fontWeight: 'bold',
+    cursor: 'pointer',
+    margin: theme.spacing(1)
   },
   input: {
     fontSize: '1.2rem',
@@ -22,11 +24,17 @@ const useStyle = makeStyles((theme) => ({
       background: '#ddd',
     },
   },
+  icon: {
+    margin: theme.spacing(1),
+    cursor: 'pointer'
+  }
 }));
+
 export default function Title({ title, listId }) {
   const [open, setOpen] = useState(false);
   const [newTitle, setNewTitle] = useState(title);
-  const { updateListTitle } = useContext(storeApi);
+  const { updateListTitle, deleteList } = useContext(storeApi);
+
   const classes = useStyle();
   const handleOnChange = (e) => {
     setNewTitle(e.target.value);
@@ -36,21 +44,20 @@ export default function Title({ title, listId }) {
     updateListTitle(newTitle, listId);
     setOpen(false);
   };
+
   return (
     <div>
       {open ? (
-        <div>
+        <form onSubmit={handleOnBlur} >
           <InputBase
             onChange={handleOnChange}
             autoFocus
             value={newTitle}
-            inputProps={{
-              className: classes.input,
-            }}
+            inputProps={{ className: classes.input }}
             fullWidth
             onBlur={handleOnBlur}
           />
-        </div>
+        </form>
       ) : (
         <div className={classes.editableTitleContainer}>
           <Typography
@@ -59,7 +66,7 @@ export default function Title({ title, listId }) {
           >
             {title}
           </Typography>
-          <MoreHorizIcon />
+          <DeleteIcon className={classes.icon} onClick={() => deleteList(listId)} />
         </div>
       )}
     </div>

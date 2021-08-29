@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
   root: {
@@ -13,20 +14,28 @@ const useStyle = makeStyles((theme) => ({
     fontWeight: 'bold',
     flexGrow: 1,
   },
-  btn: {
+  button: {
+    background: '#5AAC44',
     color: '#fff',
-    background: 'hsla(0,0%,100%,.24)',
+    '&:hover': {
+      background: fade('#5AAC44', 0.75),
+    }
   },
+  link: {
+    textDecoration: 'none'
+  }
 }));
 
-export default function TopBar({ setOpen }) {
+export default function TopBar() {
   const classes = useStyle();
   return (
     <div className={classes.root}>
       <Typography className={classes.title}>Daily Trello</Typography>
-      <Button className={classes.btn} onClick={() => setOpen(true)}>
-        Change Background
-      </Button>
+      <Link className={classes.link} to="/sign-in">
+        <Button className={classes.button} onClick={() => alert('log out')}>
+          Log out
+        </Button>
+      </Link>
     </div>
   );
 }

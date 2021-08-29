@@ -24,6 +24,8 @@ const useStyle = makeStyles((theme) => ({
     margin: theme.spacing(0, 1, 1, 1),
   },
 }));
+
+
 export default function InputCard({ setOpen, listId, type }) {
   const classes = useStyle();
   const { addMoreCard, addMoreList } = useContext(storeApi);

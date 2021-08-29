@@ -15,6 +15,7 @@ const useStyle = makeStyles((theme) => ({
     '&:hover': {
       backgroundColor: fade('#000', 0.25),
     },
+    cursor: 'pointer'
   },
 }));
 

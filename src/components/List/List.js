@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Typography, CssBaseline } from '@material-ui/core';
+import { Paper, CssBaseline } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Title from './Title';
 import Card from '../Card';
@@ -16,6 +16,7 @@ const useStyle = makeStyles((theme) => ({
     marginTop: theme.spacing(4),
   },
 }));
+
 export default function List({ list, index }) {
   const classes = useStyle();
   return (
@@ -33,7 +34,7 @@ export default function List({ list, index }) {
                   className={classes.cardContainer}
                 >
                   {list.cards.map((card, index) => (
-                    <Card key={card.id} card={card} index={index} />
+                    <Card key={card.id} card={card} index={index} listId={list.id} />
                   ))}
                   {provided.placeholder}
                 </div>
