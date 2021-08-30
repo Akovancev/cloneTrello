@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import store from '../utils/store';
 import { v4 as uuid } from 'uuid';
+import { CardActions } from '@material-ui/core';
 
 export const useApp = () => {
     const [data, setData] = useState(store);
@@ -84,6 +85,23 @@ export const useApp = () => {
         setData(newState);
     };
 
+    const updateCardTitle = (title, listId, cardId, index) => {
+        const list = data.lists[listId];
+        const card = list.cards[index];
+        debugger;
+        console.log(card)
+        card.title = title;
+
+        const newState = {
+            ...data,
+            lists: {
+                ...data.lists,
+                [title]: card,
+            },
+        };
+        setData(newState);
+    };
+
     const onDragEnd = (result) => {
         const { destination, source, draggableId, type } = result;
         console.log('destination', destination, 'source', source, draggableId);
@@ -138,6 +156,7 @@ export const useApp = () => {
         addMoreCard,
         addMoreList,
         updateListTitle,
-        onDragEnd
+        onDragEnd,
+        updateCardTitle
     }
 }

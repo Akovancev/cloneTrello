@@ -32,7 +32,8 @@ export default function App() {
     addMoreCard,
     addMoreList,
     updateListTitle,
-    onDragEnd
+    onDragEnd,
+    updateCardTitle
   } = useApp()
   
   return (
@@ -44,7 +45,7 @@ export default function App() {
         <LogIn />
       </Route>
       <Route path="/">
-        <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle, deleteList, deleteCard }}>
+        <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle, deleteList, deleteCard, updateCardTitle }}>
           <div className={classes.root}>
             <TopBar />
             <DragDropContext onDragEnd={onDragEnd}>

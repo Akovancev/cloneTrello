@@ -17,6 +17,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+
 export default function List({ list, index }) {
   const classes = useStyle();
   return (
@@ -33,9 +34,11 @@ export default function List({ list, index }) {
                   {...provided.droppableProps}
                   className={classes.cardContainer}
                 >
-                  {list.cards.map((card, index) => (
-                    <Card key={card.id} card={card} index={index} listId={list.id} />
-                  ))}
+            
+                  {list.cards.map((card, index) => {  
+                        // console.log(card.title)            
+                    return <Card key={card.id} cardId={card.id} title={card.title} card={card} index={index} listId={list.id} />
+                  })}
                   {provided.placeholder}
                 </div>
               )}
