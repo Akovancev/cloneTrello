@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Paper, InputBase, Typography } from '@material-ui/core';
+import { Paper, InputBase } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-beautiful-dnd';
 import DeleteIcon from '@material-ui/icons/Delete';
