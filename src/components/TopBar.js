@@ -1,24 +1,27 @@
 import React from 'react';
 import { Typography, Button } from '@material-ui/core';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles, alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
   root: {
     display: 'flex',
     alignItems: 'center',
-    margin: theme.spacing(2),
+    padding: '16px',
+    background: '#EBECF0',
   },
   title: {
-    fontSize: '1.2rem',
+    fontSize: '1.5rem',
     fontWeight: 'bold',
     flexGrow: 1,
+    paddingRight: '1em'
   },
   button: {
     background: '#5AAC44',
     color: '#fff',
+    flex: 'right',
     '&:hover': {
-      background: fade('#5AAC44', 0.75),
+      background: alpha('#5AAC44', 0.75),
     }
   },
   link: {
