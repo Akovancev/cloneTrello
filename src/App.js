@@ -2,7 +2,7 @@ import React from 'react';
 import StoreApi from './utils/storeApi';
 import { useApp } from './hooks/useApp';
 import { makeStyles } from '@material-ui/core/styles';
-
+import { CssBaseline, Paper } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { LogIn } from './components/LogIn/LogIn';
@@ -17,9 +17,24 @@ const useStyle = makeStyles((theme) => ({
     background: '#D1D1D1',
     width: '100%',
     overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  main: {
+    marginTop: theme.spacing(10),
+    marginBottom: theme.spacing(10),
+  },
+  footer: {
+    display: 'flex',
+    position: 'fixed',
+    width: '100%',
+    flexDirection: 'column',
   },
   listContainer: {
     display: 'flex',
+  },
+  colorPaper: {
+    background: '#D1D1D1',
   }
 }));
 
@@ -37,6 +52,7 @@ export default function App() {
   } = useApp()
   
   return (
+    <div className={classes.root}>
     <Switch>
       <Route path="/sign-up">
         <Registration />
@@ -46,8 +62,12 @@ export default function App() {
       </Route>
       <Route path="/">
         <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle, deleteList, deleteCard, updateCardTitle }}>
-          <div className={classes.root}>
-            <TopBar />
+        <footer className={classes.footer}>
+          <Paper className={classes.paperColor}><TopBar /></Paper>
+        </footer>
+          
+          <div className={classes.main}>
+          <CssBaseline />
             <DragDropContext onDragEnd={onDragEnd}>
               <Droppable droppableId="app" type="list" direction="horizontal">
                 {(provided) => (
@@ -70,5 +90,6 @@ export default function App() {
         </StoreApi.Provider>
       </Route>
     </Switch>
+    </div>
   );
 }

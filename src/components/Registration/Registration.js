@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
-import { makeStyles, fade } from '@material-ui/core/styles';
+import { makeStyles, alpha } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme) => ({
@@ -17,7 +17,7 @@ const useStyle = makeStyles((theme) => ({
         background: '#5AAC44',
         color: '#fff',
         '&:hover': {
-            background: fade('#5AAC44', 0.75),
+            background: alpha('#5AAC44', 0.75),
         }
     },
     link: {
@@ -25,7 +25,7 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
         color: '#5AAC44',
         '&:hover': {
-            color: fade('#5AAC44', 0.75),
+            color: alpha('#5AAC44', 0.75),
         }
     },
     text: {
