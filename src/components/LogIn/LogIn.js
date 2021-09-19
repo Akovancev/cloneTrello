@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import AuthApi from '../../utils/authApi';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { Container } from '@material-ui/core';
-import { makeStyles, alpha } from '@material-ui/core/styles';
+import { makeStyles, fade } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
     field: {
@@ -17,7 +19,7 @@ const useStyle = makeStyles((theme) => ({
         background: '#5AAC44',
         color: '#fff',
         '&:hover': {
-            background: alpha('#5AAC44', 0.75),
+            background: fade('#5AAC44', 0.75),
         }
     },
     link: {
@@ -25,7 +27,7 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
         color: '#5AAC44',
         '&:hover': {
-            color: alpha('#5AAC44', 0.75),
+            color: fade('#5AAC44', 0.75),
         }
     },
     text: {
@@ -46,6 +48,8 @@ const validationSchema = yup.object({
 
 export const LogIn = () => {
     const classes = useStyle()
+    const { setUser } = useContext(AuthApi);
+    const history = useHistory();
 
     const formik = useFormik({
         initialValues: {
@@ -59,7 +63,10 @@ export const LogIn = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(values)
             }
-            fetch('http://localhost:8000/emp/login', requestOptions)
+            fetch('http://localhost:8000/user/login', requestOptions)
+                .then(response => response.json())
+                .then(commits => setUser({ ...commits.data }))
+            history.push('/')
         }
     });
 

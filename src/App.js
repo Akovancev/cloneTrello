@@ -1,8 +1,10 @@
 import React from 'react';
 import StoreApi from './utils/storeApi';
+import AuthApi from './utils/authApi';
 import { useApp } from './hooks/useApp';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline, Paper } from '@material-ui/core';
+
 import { Route, Switch } from 'react-router-dom';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { LogIn } from './components/LogIn/LogIn';
@@ -48,48 +50,52 @@ export default function App() {
     addMoreList,
     updateListTitle,
     onDragEnd,
-    updateCardTitle
+    updateCardTitle,
+    user,
+    setUser,
   } = useApp()
-  
+
   return (
-    <div className={classes.root}>
-    <Switch>
-      <Route path="/sign-up">
-        <Registration />
-      </Route>
-      <Route path="/sign-in">
-        <LogIn />
-      </Route>
-      <Route path="/">
-        <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle, deleteList, deleteCard, updateCardTitle }}>
-        <footer className={classes.footer}>
-          <Paper className={classes.paperColor}><TopBar /></Paper>
-        </footer>
-          
-          <div className={classes.main}>
-          <CssBaseline />
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Droppable droppableId="app" type="list" direction="horizontal">
-                {(provided) => (
-                  <div
-                    className={classes.listContainer}
-                    ref={provided.innerRef}
-                    {...provided.droppableProps}
-                  >
-                    {data.listIds.map((listId, index) => {
-                      const list = data.lists[listId];
-                      return <List list={list} key={listId} index={index} />;
-                    })}
-                    <InputContainer type="list" />
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-            </DragDropContext>
-          </div>
-        </StoreApi.Provider>
-      </Route>
-    </Switch>
-    </div>
+    <AuthApi.Provider value={{ user, setUser }}>
+      <div className={classes.root}>
+        <Switch>
+          <Route path="/sign-up">
+            <Registration />
+          </Route>
+          <Route path="/sign-in">
+            <LogIn />
+          </Route>
+          <Route path="/">
+            <StoreApi.Provider value={{ addMoreCard, addMoreList, updateListTitle, deleteList, deleteCard, updateCardTitle }}>
+              <footer className={classes.footer}>
+                <Paper className={classes.paperColor}><TopBar /></Paper>
+              </footer>
+
+              <div className={classes.main}>
+                <CssBaseline />
+                <DragDropContext onDragEnd={onDragEnd}>
+                  <Droppable droppableId="app" type="list" direction="horizontal">
+                    {(provided) => (
+                      <div
+                        className={classes.listContainer}
+                        ref={provided.innerRef}
+                        {...provided.droppableProps}
+                      >
+                        {data.listIds.map((listId, index) => {
+                          const list = data.lists[listId];
+                          return <List list={list} key={listId} index={index} />;
+                        })}
+                        <InputContainer type="list" />
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
+                </DragDropContext>
+              </div>
+            </StoreApi.Provider>
+          </Route>
+        </Switch>
+      </div>
+    </AuthApi.Provider>
   );
 }

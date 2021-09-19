@@ -4,6 +4,17 @@ import { v4 as uuid } from 'uuid';
 
 export const useApp = () => {
     const [data, setData] = useState(store);
+    const [user, setUser] = useState();
+
+    const updateFetch = () => {
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        }
+        console.log('qq', user);
+        fetch('http://localhost:8000/user/update-board' + user?._id, requestOptions)
+    }
 
     const deleteCard = (listId, cardId) => {
         setData(prevState => {
@@ -19,6 +30,7 @@ export const useApp = () => {
             }
             return newState
         })
+        updateFetch()
     }
 
     const deleteList = (listId) => {
@@ -31,6 +43,7 @@ export const useApp = () => {
             }
             return newState
         })
+        updateFetch()
     }
 
     const addMoreCard = (title, listId) => {
@@ -51,6 +64,7 @@ export const useApp = () => {
             },
         };
         setData(newState);
+        updateFetch()
     };
 
     const addMoreList = (title) => {
@@ -68,6 +82,7 @@ export const useApp = () => {
             },
         };
         setData(newState);
+        updateFetch()
     };
 
     const updateListTitle = (title, listId) => {
@@ -82,6 +97,7 @@ export const useApp = () => {
             },
         };
         setData(newState);
+        updateFetch()
     };
 
     const updateCardTitle = (title, listId, cardId, index) => {
@@ -99,6 +115,7 @@ export const useApp = () => {
             },
         };
         setData(newState);
+        updateFetch()
     };
 
     const onDragEnd = (result) => {
@@ -146,6 +163,7 @@ export const useApp = () => {
             };
             setData(newState);
         }
+        updateFetch()
     };
 
     return {
@@ -156,6 +174,8 @@ export const useApp = () => {
         addMoreList,
         updateListTitle,
         onDragEnd,
-        updateCardTitle
+        updateCardTitle,
+        setUser,
+        user,
     }
 }

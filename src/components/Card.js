@@ -39,9 +39,8 @@ export default function Card({ card, title, index, listId, cardId}) {
   const handleOnChange = (e) => {
     setNewTitle(e.target.value);
   };
-// console.log(cardId)
+
   const handleOnBlur = () => {
-    
     updateCardTitle(newTitle, listId, cardId, index);
     setOpen(false);
   };
